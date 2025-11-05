@@ -14,7 +14,6 @@
             height: 100%;
             font-family: Arial, sans-serif;
         }
-        /* Container principal do vídeo */
         .video-background {
             position: relative;
             height: 100%;
@@ -31,268 +30,85 @@
             object-position: center;
             z-index: -1;
         }
-        /* Avatar e Ao Vivo */
-        .avatar-container {
+        .play-overlay {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
-        }
-        .avatar-container img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid white;
-        }
-        .live-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: red;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 20px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 5px red; }
-            50% { box-shadow: 0 0 20px red; }
-        }
-        /* Chat */
-        .chat-container {
-            position: absolute;
-            bottom: 80px;
-            width: 100%;
-            padding: 0 20px;
-            z-index: 10;
-        }
-        .chat-message {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            margin: 10px 0;
-            max-width: 70%;
-            border-radius: 20px;
-            opacity: 0;
-            animation: slide-up 5s ease-in-out forwards;
-            word-wrap: break-word;
-        }
-        .chat-message.left {
-            background-color: rgba(60, 60, 60, 0.8);
-            justify-content: flex-start;
-            color: white;
-        }
-        .chat-message.right {
-            background-color: #E6005C;
-            color: white;
-            justify-content: flex-end;
-            margin-left: auto;
-        }
-        @keyframes slide-up {
-            0% { transform: translateY(30px); opacity: 0; }
-            20% { transform: translateY(0); opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateY(-30px); opacity: 0; }
-        }
-        /* Input de mensagem */
-        .message-container {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        .message-container input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 20px;
-            font-size: 16px;
-            background-color: #fff;
-            outline: none;
-        }
-        .message-container button {
-            background-color: #E6005C;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            margin-left: 10px;
+            z-index: 50;
             cursor: pointer;
-            font-size: 16px;
-            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        /* === BOTÕES MODERNOS === */
-        .controls-container {
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 15;
+        .play-overlay.show {
+            opacity: 1;
         }
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.5);
+        .play-btn {
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.1);
-            border-color: white;
+        .play-btn::after {
+            content: '';
+            width: 0; height: 0;
+            border-left: 20px solid #E6005C;
+            border-top: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+            margin-left: 6px;
         }
-        .control-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        /* === NOTIFICAÇÃO ESTILOSA === */
-        .notification {
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: bold;
-            white-space: nowrap;
-            z-index: 20;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        .notification.show {
-            opacity: 1;
-            visibility: visible;
-            top: 60px;
-        }
-        /* === NOTIFICAÇÕES DA LUCÍA (SEPARADAS) === */
-        .lucia-notifications {
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 25;
-            pointer-events: none;
-        }
-        .lucia-notification {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: bold;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        .lucia-notification.show {
-            opacity: 1;
-            visibility: visible;
-            top: 60px;
-        }
-        /* === POPUP MODAL DE PERMISSÃO === */
-        .permission-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .permission-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .permission-modal .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-        .permission-modal.show .modal-content {
-            transform: scale(1);
-        }
-        .permission-modal p {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .permission-modal .btn-group {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-        .permission-modal button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .permission-modal .btn-yes {
-            background: #E6005C;
-            color: white;
-        }
-        .permission-modal .btn-no {
-            background: #eee;
-            color: #333;
-        }
-        .permission-modal button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        /* ... (todo o resto do CSS permanece igual) ... */
+        .avatar-container { position: absolute; top: 10px; left: 10px; display: flex; align-items: center; }
+        .avatar-container img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid white; }
+        .live-badge { position: absolute; top: 10px; right: 10px; background-color: red; color: white; font-size: 14px; font-weight: bold; padding: 5px 10px; border-radius: 20px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 5px red; } 50% { box-shadow: 0 0 20px red; } }
+        .chat-container { position: absolute; bottom: 80px; width: 100%; padding: 0 20px; z-index: 10; }
+        .chat-message { display: flex; align-items: center; padding: 10px; margin: 10px 0; max-width: 70%; border-radius: 20px; opacity: 0; animation: slide-up 5s ease-in-out forwards; word-wrap: break-word; }
+        .chat-message.left { background-color: rgba(60, 60, 60, 0.8); justify-content: flex-start; color: white; }
+        .chat-message.right { background-color: #E6005C; color: white; justify-content: flex-end; margin-left: auto; }
+        @keyframes slide-up { 0% { transform: translateY(30px); opacity: 0; } 20% { transform: translateY(0); opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-30px); opacity: 0; } }
+        .message-container { position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: center; align-items: center; padding: 0 20px; box-sizing: border-box; }
+        .message-container input { flex: 1; padding: 10px; border: none; border-radius: 20px; font-size: 16px; background-color: #fff; outline: none; }
+        .message-container button { background-color: #E6005C; border: none; border-radius: 20px; padding: 10px 20px; margin-left: 10px; cursor: pointer; font-size: 16px; color: white; }
+        .controls-container { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 15; }
+        .control-btn { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(5px); }
+        .control-btn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.1); border-color: white; }
+        .control-btn svg { width: 24px; height: 24px; fill: white; }
+        .notification { position: absolute; top: 70px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: bold; white-space: nowrap; z-index: 20; opacity: 0; visibility: hidden; transition: all 0.4s ease; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+        .notification.show { opacity: 1; visibility: visible; top: 60px; }
+        .lucia-notifications { position: absolute; top: 70px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 25; pointer-events: none; }
+        .lucia-notification { background: rgba(0, 0, 0, 0.8); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: bold; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.4s ease; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+        .lucia-notification.show { opacity: 1; visibility: visible; top: 60px; }
+        .permission-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .permission-modal.show { opacity: 1; visibility: visible; }
+        .permission-modal .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); transform: scale(0.8); transition: transform 0.3s ease; }
+        .permission-modal.show .modal-content { transform: scale(1); }
+        .permission-modal p { font-size: 16px; color: #333; margin-bottom: 20px; line-height: 1.5; }
+        .permission-modal .btn-group { display: flex; gap: 12px; justify-content: center; }
+        .permission-modal button { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
+        .permission-modal .btn-yes { background: #E6005C; color: white; }
+        .permission-modal .btn-no { background: #eee; color: #333; }
+        .permission-modal button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
     <div class="video-background">
         <!-- Vídeo -->
-        <video id="callVideo" autoplay playsinline>
+        <video id="callVideo" playsinline>
             <source src="media/videocam1.mp4" type="video/mp4">
             Seu navegador não suporta o vídeo.
         </video>
+
+        <!-- Overlay de play (só aparece se necessário) -->
+        <div id="playOverlay" class="play-overlay">
+            <div class="play-btn"></div>
+        </div>
+
         <!-- Avatar -->
         <div class="avatar-container">
             <img src="images/foto2.jpg" alt="Avatar">
@@ -328,7 +144,8 @@
         <!-- Notificações da Lucía -->
         <div id="luciaNotifications" class="lucia-notifications"></div>
     </div>
-    <!-- === POPUP DE PERMISSÃO === -->
+
+    <!-- POPUP DE PERMISSÃO -->
     <div id="permissionModal" class="permission-modal">
         <div class="modal-content">
             <p id="permissionText"></p>
@@ -338,9 +155,11 @@
             </div>
         </div>
     </div>
+
     <script>
-        const chatContainer = document.getElementById('chatContainer');
         const callVideo = document.getElementById('callVideo');
+        const playOverlay = document.getElementById('playOverlay');
+        const chatContainer = document.getElementById('chatContainer');
         const luciaNotifContainer = document.getElementById('luciaNotifications');
         const modal = document.getElementById('permissionModal');
         const permissionText = document.getElementById('permissionText');
@@ -348,15 +167,62 @@
         const btnNo = document.getElementById('btnNo');
         let messageShown = {};
         let luciaNotifShown = {};
-        let pendingAction = null; // 'camera' ou 'audio'
-        // === FUNÇÃO PARA NOTIFICAÇÃO DO USUÁRIO ===
+        let pendingAction = null;
+        let hasInteracted = false;
+
+        // === FORÇAR PLAY COM SOM APÓS CLIQUE ===
+        function startVideo() {
+            if (hasInteracted) return;
+            hasInteracted = true;
+
+            callVideo.muted = false;
+            const playPromise = callVideo.play();
+
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        playOverlay.classList.remove('show');
+                    })
+                    .catch(err => {
+                        console.log("Play bloqueado:", err);
+                        playOverlay.classList.add('show');
+                    });
+            }
+        }
+
+        // Clique em qualquer lugar inicia o vídeo
+        document.body.addEventListener('click', startVideo);
+        document.body.addEventListener('touchstart', startVideo);
+
+        // Botão de play no overlay
+        playOverlay.addEventListener('click', (e) => {
+            e.stopPropagation();
+            startVideo();
+        });
+
+        // === CARREGAR TEMPO SALVO ===
+        window.addEventListener('load', () => {
+            const savedTime = localStorage.getItem("videoTime");
+            const savedMessages = localStorage.getItem("messagesShown");
+            if (savedTime && !isNaN(savedTime)) {
+                callVideo.currentTime = parseFloat(savedTime);
+            }
+            if (savedMessages) {
+                try { messageShown = JSON.parse(savedMessages); } catch(e) {}
+            }
+            // Tenta autoplay silencioso só pra carregar
+            callVideo.muted = true;
+            callVideo.play().catch(() => {});
+        });
+
+        // === FUNÇÕES DO CHAT, NOTIFICAÇÕES, ETC (iguais) ===
         function showNotification(text, duration = 3000) {
             const notif = document.getElementById('notification');
             notif.textContent = text;
             notif.classList.add('show');
             setTimeout(() => notif.classList.remove('show'), duration);
         }
-        // === FUNÇÃO PARA NOTIFICAÇÃO DA LUCÍA ===
+
         function showLuciaNotification(text, duration = 3000) {
             const notif = document.createElement('div');
             notif.className = 'lucia-notification';
@@ -368,7 +234,7 @@
                 setTimeout(() => notif.remove(), 400);
             }, duration);
         }
-        // === CHAT ===
+
         function showChatMessage(sender, message, position) {
             const chatMessage = document.createElement('div');
             chatMessage.classList.add('chat-message', position);
@@ -376,6 +242,7 @@
             chatContainer.appendChild(chatMessage);
             setTimeout(() => chatMessage.remove(), 5000);
         }
+
         function sendMessage() {
             const input = document.getElementById('messageInput');
             const msg = input.value.trim();
@@ -384,6 +251,7 @@
                 input.value = '';
             }
         }
+
         function getSaudacao() {
             const h = new Date().getHours();
             if (h < 4) return 'acordado essa hora? rs';
@@ -391,7 +259,7 @@
             if (h < 18) return 'boa tarde';
             return 'boa noite';
         }
-        // === ABRIR POPUP DE PERMISSÃO ===
+
         function openPermissionModal(type) {
             pendingAction = type;
             const message = type === 'camera'
@@ -400,7 +268,7 @@
             permissionText.textContent = message;
             modal.classList.add('show');
         }
-        // === FECHAR POPUP E EXECUTAR AÇÃO ===
+
         function closeModalAndProceed() {
             modal.classList.remove('show');
             setTimeout(() => {
@@ -414,71 +282,36 @@
                 pendingAction = null;
             }, 300);
         }
-        // === EVENTOS DOS BOTÕES ===
-        document.getElementById('cameraBtn').addEventListener('click', () => {
-            openPermissionModal('camera');
-        });
-        document.getElementById('audioBtn').addEventListener('click', () => {
-            openPermissionModal('audio');
-        });
+
+        document.getElementById('cameraBtn').addEventListener('click', () => openPermissionModal('camera'));
+        document.getElementById('audioBtn').addEventListener('click', () => openPermissionModal('audio'));
         btnYes.addEventListener('click', closeModalAndProceed);
         btnNo.addEventListener('click', closeModalAndProceed);
-        // === TIMEUPDATE DO VÍDEO ===
+
+        // === TIMEUPDATE ===
         callVideo.addEventListener('timeupdate', () => {
             const t = callVideo.currentTime;
-            if (t >= 3 && !messageShown.m1) {
-                showChatMessage('Lucía', `Oi amor, ${getSaudacao()}`, 'left');
-                messageShown.m1 = true;
-            }
-            if (t >= 7 && !messageShown.m2) {
-                showChatMessage('Lucía', 'Ta aí?? deu certo de você entrar?', 'left');
-                messageShown.m2 = true;
-            }
-            if (t >= 15 && !messageShown.m3) {
-                showChatMessage('Lucía', 'Perai, vou ligar meu audio pra gente conversar melhor.', 'left');
-                messageShown.m3 = true;
-            }
-            if (t >= 10000 && !messageShown.m4) {
-                showChatMessage('Lucía', 'vou pro quarto, lá fico mais "a vontade" rs', 'left');
-                messageShown.m4 = true;
-            }
-            if (t >= 10000 && !messageShown.m6) {
-                showChatMessage('Lucía', 'Fica bem duro pra mim, bem gostoso', 'left');
-                messageShown.m6 = true;
-            }
-            // === NOTIFICAÇÕES DA LUCÍA (TEMPOS EDITÁVEIS) ===
-            if (t >= 16 && !luciaNotifShown.cam1) {
-                showLuciaNotification('Lucía está ligando o áudio...');
-                luciaNotifShown.cam1 = true;
-            }
-            if (t >= 19 && !luciaNotifShown.cam2) {
-                showLuciaNotification('Áudio ligado com sucesso!');
-                luciaNotifShown.cam2 = true;
-            }
-            if (t >= 118 && !luciaNotifShown.aud1) {
-                showLuciaNotification('Lucía está ligando a câmera...');
-                luciaNotifShown.aud1 = true;
-            }
-            if (t >= 122 && !luciaNotifShown.aud2) {
-                showLuciaNotification('Câmera ligada com sucesso!');
-                luciaNotifShown.aud2 = true;
-            }
+            if (t >= 3 && !messageShown.m1) { showChatMessage('Lucía', `Oi amor, ${getSaudacao()}`, 'left'); messageShown.m1 = true; }
+            if (t >= 7 && !messageShown.m2) { showChatMessage('Lucía', 'Ta aí?? deu certo de você entrar?', 'left'); messageShown.m2 = true; }
+            if (t >= 15 && !messageShown.m3) { showChatMessage('Lucía', 'Perai, vou ligar meu audio pra gente conversar melhor.', 'left'); messageShown.m3 = true; }
+            if (t >= 10000 && !messageShown.m4) { showChatMessage('Lucía', 'vou pro quarto, lá fico mais "a vontade" rs', 'left'); messageShown.m4 = true; }
+            if (t >= 10000 && !messageShown.m6) { showChatMessage('Lucía', 'Fica bem duro pra mim, bem gostoso', 'left'); messageShown.m6 = true; }
+            if (t >= 16 && !luciaNotifShown.cam1) { showLuciaNotification('Lucía está ligando o áudio...'); luciaNotifShown.cam1 = true; }
+            if (t >= 19 && !luciaNotifShown.cam2) { showLuciaNotification('Áudio ligado com sucesso!'); luciaNotifShown.cam2 = true; }
+            if (t >= 118 && !luciaNotifShown.aud1) { showLuciaNotification('Lucía está ligando a câmera...'); luciaNotifShown.aud1 = true; }
+            if (t >= 122 && !luciaNotifShown.aud2) { showLuciaNotification('Câmera ligada com sucesso!'); luciaNotifShown.aud2 = true; }
         });
-        // === LOCALSTORAGE E REDIRECIONAMENTO ===
+
+        // === SALVAR TEMPO ===
         callVideo.addEventListener('ended', () => {
             window.location.href = "https://meuprivadinho-salaprivada.vercel.app/";
             localStorage.removeItem("videoTime");
             localStorage.removeItem("messagesShown");
         });
+
         window.addEventListener("beforeunload", () => {
             localStorage.setItem("videoTime", callVideo.currentTime);
             localStorage.setItem("messagesShown", JSON.stringify(messageShown));
-        });
-        window.addEventListener("load", () => {
-            const savedTime = localStorage.getItem("videoTime");
-            const savedMessages = localStorage.getItem("messagesShown");
-            if (savedTime) callVideo.currentTime = parseFloat(savedTime);
-            if (savedMessages) messageShown = JSON.parse(savedMessages);
         });
     </script>
 </body>
