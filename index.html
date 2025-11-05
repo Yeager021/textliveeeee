@@ -14,7 +14,6 @@
             height: 100%;
             font-family: Arial, sans-serif;
         }
-
         /* Container principal do vídeo */
         .video-background {
             position: relative;
@@ -32,7 +31,6 @@
             object-position: center;
             z-index: -1;
         }
-
         /* Avatar e Ao Vivo */
         .avatar-container {
             position: absolute;
@@ -63,7 +61,6 @@
             0%, 100% { box-shadow: 0 0 5px red; }
             50% { box-shadow: 0 0 20px red; }
         }
-
         /* Chat */
         .chat-container {
             position: absolute;
@@ -100,7 +97,6 @@
             80% { opacity: 1; }
             100% { transform: translateY(-30px); opacity: 0; }
         }
-
         /* Input de mensagem */
         .message-container {
             position: absolute;
@@ -131,7 +127,6 @@
             font-size: 16px;
             color: white;
         }
-
         /* === BOTÕES MODERNOS === */
         .controls-container {
             position: absolute;
@@ -166,7 +161,6 @@
             height: 24px;
             fill: white;
         }
-
         /* === NOTIFICAÇÃO ESTILOSA === */
         .notification {
             position: absolute;
@@ -192,7 +186,6 @@
             visibility: visible;
             top: 60px;
         }
-
         /* === NOTIFICAÇÕES DA LUCÍA (SEPARADAS) === */
         .lucia-notifications {
             position: absolute;
@@ -224,7 +217,6 @@
             visibility: visible;
             top: 60px;
         }
-
         /* === POPUP MODAL DE PERMISSÃO === */
         .permission-modal {
             position: fixed;
@@ -297,7 +289,7 @@
 <body>
     <div class="video-background">
         <!-- Vídeo -->
-        <video id="callVideo" autoplay muted playsinline>
+        <video id="callVideo" autoplay playsinline>
             <source src="media/videocam1.mp4" type="video/mp4">
             Seu navegador não suporta o vídeo.
         </video>
@@ -331,14 +323,11 @@
                 </svg>
             </button>
         </div>
-
         <!-- Notificação do usuário -->
         <div id="notification" class="notification"></div>
-
         <!-- Notificações da Lucía -->
         <div id="luciaNotifications" class="lucia-notifications"></div>
     </div>
-
     <!-- === POPUP DE PERMISSÃO === -->
     <div id="permissionModal" class="permission-modal">
         <div class="modal-content">
@@ -349,7 +338,6 @@
             </div>
         </div>
     </div>
-
     <script>
         const chatContainer = document.getElementById('chatContainer');
         const callVideo = document.getElementById('callVideo');
@@ -358,11 +346,9 @@
         const permissionText = document.getElementById('permissionText');
         const btnYes = document.getElementById('btnYes');
         const btnNo = document.getElementById('btnNo');
-
         let messageShown = {};
         let luciaNotifShown = {};
         let pendingAction = null; // 'camera' ou 'audio'
-
         // === FUNÇÃO PARA NOTIFICAÇÃO DO USUÁRIO ===
         function showNotification(text, duration = 3000) {
             const notif = document.getElementById('notification');
@@ -370,7 +356,6 @@
             notif.classList.add('show');
             setTimeout(() => notif.classList.remove('show'), duration);
         }
-
         // === FUNÇÃO PARA NOTIFICAÇÃO DA LUCÍA ===
         function showLuciaNotification(text, duration = 3000) {
             const notif = document.createElement('div');
@@ -383,7 +368,6 @@
                 setTimeout(() => notif.remove(), 400);
             }, duration);
         }
-
         // === CHAT ===
         function showChatMessage(sender, message, position) {
             const chatMessage = document.createElement('div');
@@ -392,7 +376,6 @@
             chatContainer.appendChild(chatMessage);
             setTimeout(() => chatMessage.remove(), 5000);
         }
-
         function sendMessage() {
             const input = document.getElementById('messageInput');
             const msg = input.value.trim();
@@ -401,7 +384,6 @@
                 input.value = '';
             }
         }
-
         function getSaudacao() {
             const h = new Date().getHours();
             if (h < 4) return 'acordado essa hora? rs';
@@ -409,7 +391,6 @@
             if (h < 18) return 'boa tarde';
             return 'boa noite';
         }
-
         // === ABRIR POPUP DE PERMISSÃO ===
         function openPermissionModal(type) {
             pendingAction = type;
@@ -419,7 +400,6 @@
             permissionText.textContent = message;
             modal.classList.add('show');
         }
-
         // === FECHAR POPUP E EXECUTAR AÇÃO ===
         function closeModalAndProceed() {
             modal.classList.remove('show');
@@ -434,63 +414,56 @@
                 pendingAction = null;
             }, 300);
         }
-
         // === EVENTOS DOS BOTÕES ===
         document.getElementById('cameraBtn').addEventListener('click', () => {
             openPermissionModal('camera');
         });
-
         document.getElementById('audioBtn').addEventListener('click', () => {
             openPermissionModal('audio');
         });
-
         btnYes.addEventListener('click', closeModalAndProceed);
         btnNo.addEventListener('click', closeModalAndProceed);
-
         // === TIMEUPDATE DO VÍDEO ===
         callVideo.addEventListener('timeupdate', () => {
             const t = callVideo.currentTime;
-
             if (t >= 3 && !messageShown.m1) {
                 showChatMessage('Lucía', `Oi amor, ${getSaudacao()}`, 'left');
                 messageShown.m1 = true;
             }
-            if (t >= 5 && !messageShown.m2) {
+            if (t >= 7 && !messageShown.m2) {
                 showChatMessage('Lucía', 'Ta aí?? deu certo de você entrar?', 'left');
                 messageShown.m2 = true;
             }
-            if (t >= 14 && !messageShown.m3) {
-                showChatMessage('Lucía', 'Perai que já vou ligar a minha câmera, tá?', 'left');
+            if (t >= 15 && !messageShown.m3) {
+                showChatMessage('Lucía', 'Perai, vou ligar meu audio pra gente conversar melhor.', 'left');
                 messageShown.m3 = true;
             }
-            if (t >= 21 && !messageShown.m4) {
+            if (t >= 10000 && !messageShown.m4) {
                 showChatMessage('Lucía', 'vou pro quarto, lá fico mais "a vontade" rs', 'left');
                 messageShown.m4 = true;
             }
-            if (t >= 35 && !messageShown.m6) {
+            if (t >= 10000 && !messageShown.m6) {
                 showChatMessage('Lucía', 'Fica bem duro pra mim, bem gostoso', 'left');
                 messageShown.m6 = true;
             }
-
             // === NOTIFICAÇÕES DA LUCÍA (TEMPOS EDITÁVEIS) ===
-            if (t >= 5 && !luciaNotifShown.cam1) {
-                showLuciaNotification('Lucía está ligando a câmera...');
+            if (t >= 16 && !luciaNotifShown.cam1) {
+                showLuciaNotification('Lucía está ligando o áudio...');
                 luciaNotifShown.cam1 = true;
             }
-            if (t >= 8 && !luciaNotifShown.cam2) {
-                showLuciaNotification('Câmera ligada com sucesso!');
+            if (t >= 19 && !luciaNotifShown.cam2) {
+                showLuciaNotification('Áudio ligado com sucesso!');
                 luciaNotifShown.cam2 = true;
             }
-            if (t >= 11 && !luciaNotifShown.aud1) {
-                showLuciaNotification('Lucía está tentando ligar o áudio...');
+            if (t >= 118 && !luciaNotifShown.aud1) {
+                showLuciaNotification('Lucía está ligando a câmera...');
                 luciaNotifShown.aud1 = true;
             }
-            if (t >= 15 && !luciaNotifShown.aud2) {
-                showLuciaNotification('Falha ao ligar o áudio');
+            if (t >= 122 && !luciaNotifShown.aud2) {
+                showLuciaNotification('Câmera ligada com sucesso!');
                 luciaNotifShown.aud2 = true;
             }
         });
-
         // === LOCALSTORAGE E REDIRECIONAMENTO ===
         callVideo.addEventListener('ended', () => {
             window.location.href = "https://meuprivadinho-salaprivada.vercel.app/";
